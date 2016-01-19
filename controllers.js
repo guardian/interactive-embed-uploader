@@ -3,6 +3,10 @@ import path from 'path'
 import gu from 'koa-gu'
 import moment from 'moment'
 
+exports.index = function *() {
+    this.body = 'POST only';
+};
+
 exports.embed = function *() {
     var type = this.request.query.type;
     var config = gu.config.types[this.request.query.type];

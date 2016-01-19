@@ -2,7 +2,8 @@
     "base_url": "/",
     "controllers": "./controllers",
     "routes": {
-        "POST /embed": "embed"
+        "GET /": "index",
+        "POST /": "embed"
     },
 
     "logdir": "var/log",
