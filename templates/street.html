@@ -16,11 +16,17 @@
           src: url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Medium.eot?#iefix") format("embedded-opentype"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Medium.woff2") format("woff2"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Medium.woff") format("woff"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Medium.ttf") format("truetype"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Medium.svg#GuardianTextSansWeb-Medium") format("svg");
           font-style: normal;
           font-stretch: normal; }
-        {% for image in embed.images %}
-            @media (max-width: {{ image.size[0] }}px) {
+        body {
+            margin: 0;
+        }
+        .img {
+            background-size: 100% 100%;
+        }
+        {% for image in images %}
+            @media (min-width: {{ image.minWidth }}px) {
                 .img {
-                    padding-bottom: {{ image.size[1] / image.size[0] * 100 }}%;
-                    background-image: url({{ image.size.join('x') }}.png);
+                    background-image: url({{ image.name }});
+                    padding-bottom: {{ image.ratio * 100 }}%;
                 }
             }
         {% endfor %}
