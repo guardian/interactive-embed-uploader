@@ -14,15 +14,13 @@
 
     "types": {
         "map": {
-            "s3basepath": "maps/embed",
-            "template": "map"
+            "s3basepath": "maps/embed"
         },
         "chart": {
             "s3basepath": "charts/embed"
         },
         "street": {
-            "s3basepath": "streets/embed",
-            "template": "street"
+            "s3basepath": "streets/embed"
         }
     },
 

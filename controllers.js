@@ -17,17 +17,15 @@ exports.embed = function *() {
     if (config) {
         let key = moment().format('MMM/YYYY-MM-DDTHH:mm:ss').replace(/(^\w{3})/, a => a.toLowerCase());
         let fullPath = path.join(config.s3basepath, key);
-        gu.log.info(`Generating ${type} embed using template ${config.template || 'NONE'}, uploading to ${fullPath}`);
+        gu.log.info(`Generating ${type} embed, uploading to ${fullPath}`);
 
-        let files = config.template ?
-            templates[config.template](embed) :
-            [{'name': 'embed.html', 'mime': 'text/html', 'body': embed}];
-
+        let files = templates[type](embed);
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
             gu.log.info(`   uploading ${file.name}`);
             yield uploadToS3(path.join(fullPath, file.name), file.mime, file.body);
         }
+
         this.body = `${gu.config.s3domain}/${fullPath}/${files[0].name}`;
     } else {
         gu.log.error(`invalid embed type ${type}`);
