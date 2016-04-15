@@ -24,7 +24,7 @@ export default {
                 'ratio': image.size[1] / image.size[0]
             }
         });
-        var main = mainTmpl('./templates/street.html', {images});
+        var main = mainTmpl('./templates/street.html', {'source': embed.source, images});
         return [main].concat(images);
     }
 };
