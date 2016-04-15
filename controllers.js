@@ -14,10 +14,6 @@ exports.embed = function *() {
     var config = gu.config.types[this.request.query.type];
     var {embed} = this.request.body;
 
-    this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-    this.set('Access-Control-Allow-Method', 'POST');
-
     if (config) {
         let key = moment().format('MMM/YYYY-MM-DDTHH:mm:ss').replace(/(^\w{3})/, a => a.toLowerCase());
         let fullPath = path.join(config.s3basepath, key);
@@ -37,13 +33,6 @@ exports.embed = function *() {
         this.status = 400;
         this.body = 'invalid embed type';
     }
-};
-
-exports.cors = function *() {
-    this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-    this.set('Access-Control-Allow-Method', 'POST');
-    this.body = '';
 };
 
 function uploadToS3(filename, mimeType, body) {
