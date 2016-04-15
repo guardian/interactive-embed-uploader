@@ -15,12 +15,14 @@
     "types": {
         "map": {
             "s3basepath": "maps/embed",
-            "template": "map.html",
-            "mimeType": "text/html"
+            "template": "map"
         },
         "chart": {
-            "s3basepath": "charts/embed",
-            "mimeType": "text/html"
+            "s3basepath": "charts/embed"
+        },
+        "street": {
+            "s3basepath": "streets/embed",
+            "template": "street"
         }
     },
 
