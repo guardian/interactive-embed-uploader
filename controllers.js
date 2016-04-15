@@ -3,6 +3,8 @@ import path from 'path'
 import gu from 'koa-gu'
 import moment from 'moment'
 
+import templates from './templates'
+
 exports.index = function *() {
     this.body = 'POST only';
 };
@@ -14,14 +16,17 @@ exports.embed = function *() {
 
     if (config) {
         let key = moment().format('MMM/YYYY-MM-DDTHH:mm:ss').replace(/(^\w{3})/, a => a.toLowerCase());
-        let fullPath = path.join(config.s3basepath, key + '.html');
+        let fullPath = path.join(config.s3basepath, key);
+        gu.log.info(`Generating ${type} embed, uploading to ${fullPath}`);
 
-        gu.log.info(`Generating ${type} embed using template ${config.template || 'NONE'}, uploading to ${fullPath}`);
+        let files = templates[type](embed);
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+            gu.log.info(`   uploading ${file.name}`);
+            yield uploadToS3(path.join(fullPath, file.name), file.mime, file.body);
+        }
 
-        let out = config.template ? gu.tmpl(path.join('./templates', config.template), {embed}) : embed;
-
-        yield uploadToS3(fullPath, config.mimeType, out);
-        this.body = `${gu.config.s3domain}/${fullPath}`;
+        this.body = `${gu.config.s3domain}/${fullPath}/${files[0].name}`;
     } else {
         gu.log.error(`invalid embed type ${type}`);
 

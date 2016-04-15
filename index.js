@@ -30,7 +30,7 @@ module.exports = function www(opts) {
 
     app.use(responseTime());
     app.use(compress());
-    app.use(koaBody());
+    app.use(koaBody({'jsonLimit': '10mb'}));
     app.use(koaSession(app));
 
     if (gu.config.base_url[gu.config.base_url.length -1] !== '/') {

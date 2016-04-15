@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+        @font-face {
+          font-family: "Guardian Text Sans Web";
+          src: url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.eot");
+          src: url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.eot?#iefix") format("embedded-opentype"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.woff2") format("woff2"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.woff") format("woff"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.ttf") format("truetype"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.svg#GuardianTextSansWeb-Regular") format("svg");
+          font-weight: 400;
+          font-style: normal;
+          font-stretch: normal; }
+        body {
+            margin: 0;
+        }
+        .src {
+            font-family: 'Guardian Text Sans Web';
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            text-align: right;
+            margin: 0;
+            color: #767676;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .img {
+            background-size: 100% 100%;
+        }
+        {% for image in images %}
+            @media (min-width: {{ image.minWidth }}px) {
+                .img {
+                    background-image: url({{ image.name }});
+                    padding-bottom: {{ image.ratio * 100 }}%;
+                }
+            }
+        {% endfor %}
+    </style>
+</head>
+<body>
+    <div class="img"></div>
+    {% if source %}
+        <p class="src">
+            Source:
+            <a href="https://www.mapbox.com/about/maps/" target="_top">&copy; Mapbox</a>
+            <a href="http://www.openstreetmap.org/about/" target="_top">&copy; OpenStreetMap</a>
+        </p>
+    {% endif %}
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+    <script>
+        var timeout = null;
+        window.addEventListener('resize', function(evt) {
+            if (timeout) window.clearTimeout(timeout);
+            timeout = window.setTimeout(function() {
+                iframeMessenger.resize();
+                timeout = null;
+            }, 200);
+        });
+        iframeMessenger.resize()
+    </script>
+</body>
+</html>
