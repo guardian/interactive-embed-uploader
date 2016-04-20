@@ -14,17 +14,19 @@ export default {
     },
 
     street(embed) {
-        var images = embed.images.map((image, imageNo) => {
-            var prevImage = embed.images[imageNo - 1];
+        var maps = embed.maps.map((map, mapNo) => {
+            var prevMap = embed.maps[mapNo - 1];
             return {
-                'name': image.size.join('x') + '.png',
+                'name': `${map.width}x${map.height}.png`,
                 'mime': 'image/png',
-                'body': new Buffer(image.data.replace(/^data:image\/png;base64,/, ''), 'base64'),
-                'minWidth': prevImage && prevImage.size[0] || 0,
-                'ratio': image.size[1] / image.size[0]
-            }
+                'body': new Buffer(map.image.replace(/^data:image\/png;base64,/, ''), 'base64'),
+                'minWidth': prevMap && prevMap.width || 0,
+                'width': map.width,
+                'height': map.height,
+                'annotations': map.annotations
+            };
         });
-        var main = mainTmpl('./templates/street.html', {'source': embed.source, images});
-        return [main].concat(images);
+        var main = mainTmpl('./templates/street.html', {'source': embed.source, maps});
+        return [main].concat(maps);
     }
 };

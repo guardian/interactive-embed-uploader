@@ -14,11 +14,14 @@
         body {
             margin: 0;
         }
-        .src {
+        .src,
+        .annotation {
             font-family: 'Guardian Text Sans Web';
             font-weight: 400;
             font-size: 12px;
             line-height: 16px;
+        }
+        .src {
             text-align: right;
             margin: 0;
             color: #767676;
@@ -30,21 +33,76 @@
         a:hover {
             text-decoration: underline;
         }
+
         .img {
+            position: relative;
             background-size: 100% 100%;
         }
-        {% for image in images %}
-            @media (min-width: {{ image.minWidth }}px) {
+
+        .annotation {
+            position: absolute;
+            background-color: #333;
+            border-radius: 100px;
+            width: 5px;
+            height: 5px;
+            margin-top: -2px;
+            margin-left: -2px;
+        }
+        .annotation > span {
+            position: absolute;
+            white-space: nowrap;
+        }
+        .annotation.anchor-left > span {
+            top: -5px;
+            left: 9px;
+        }
+        .annotation.anchor-right > span {
+            top: -5px;
+            right: 9px;
+        }
+        .annotation.anchor-top > span,
+        .annotation.anchor-bottom > span {
+            left: -100px;
+            right: -100px;
+            text-align: center;
+        }
+        .annotation.anchor-top > span {
+            bottom: 6px;
+        }
+        .annotation.anchor-bottom > span {
+            top: 6px;
+        }
+
+        .annotations {
+            display: none;
+        }
+        {% for map in maps %}
+            @media (min-width: {{ map.minWidth }}px) and (max-width: {{ map.width }}px) {
+                .annotations--{{ map.width }} {
+                    display: block;
+                }
                 .img {
-                    background-image: url({{ image.name }});
-                    padding-bottom: {{ image.ratio * 100 }}%;
+                    background-image: url({{ map.name }});
+                    padding-bottom: {{ map.height / map.width * 100 }}%;
                 }
             }
         {% endfor %}
     </style>
 </head>
 <body>
-    <div class="img"></div>
+    <div class="img">
+        {% for map in maps %}
+            <span class="annotations annotations--{{map.width}}">
+                {% for annotation in map.annotations %}
+                    <span class="annotation anchor-{{ annotation.anchor }}"
+                          style="left: {{ annotation.x / map.width * 100}}%;
+                                 top: {{ annotation.y / map.height * 100 }}%">
+                        <span>{{ annotation.text }}</span>
+                    </span>
+                {% endfor %}
+            </span>
+        {% endfor %}
+    </div>
     {% if source %}
         <p class="src">
             Source:
