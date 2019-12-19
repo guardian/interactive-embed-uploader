@@ -16,7 +16,7 @@ exports.embed = function *() {
 
     this.set('Access-Control-Allow-Origin', '*');
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-    this.set('Access-Control-Allow-Method', 'POST');
+    this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
 
     if (config) {
         let key = moment().format('MMM/YYYY-MM-DDTHH:mm:ss').replace(/(^\w{3})/, a => a.toLowerCase());
@@ -42,7 +42,7 @@ exports.embed = function *() {
 exports.cors = function *() {
     this.set('Access-Control-Allow-Origin', '*');
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-    this.set('Access-Control-Allow-Method', 'POST');
+    this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     this.body = '';
 };
 
