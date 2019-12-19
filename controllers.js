@@ -14,6 +14,10 @@ exports.embed = function *() {
     var config = gu.config.types[this.request.query.type];
     var {embed} = this.request.body;
 
+    // this may break existing usage so am commenting out
+    // this.set("Access-Control-Allow-Origin", "https://charts.local.dev-gutools.co.uk"),
+    // this.set("Vary", "Origin"), 
+    // this.set('Access-Control-Allow-Credentials', 'true')
     this.set('Access-Control-Allow-Origin', '*');
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -40,9 +44,11 @@ exports.embed = function *() {
 };
 
 exports.cors = function *() {
- this.set('Access-Control-Allow-Origin', '*');
+    this.set("Access-Control-Allow-Origin", "https://charts.local.dev-gutools.co.uk"),
+    this.set("Vary", "Origin"),
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    this.set('Access-Control-Allow-Credentials', 'true');
     this.body = '';
 };
 
