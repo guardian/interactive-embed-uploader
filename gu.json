@@ -3,7 +3,8 @@
     "controllers": "./controllers",
     "routes": {
         "GET /": "index",
-        "POST /": "embed"
+        "POST /": "embed",
+        "OPTIONS /": "cors"
     },
 
     "logdir": "var/log",
