@@ -15,7 +15,7 @@ exports.embed = function *() {
     var {embed} = this.request.body;
 
     this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
 
     if (config) {
@@ -40,8 +40,8 @@ exports.embed = function *() {
 };
 
 exports.cors = function *() {
-    this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+ this.set('Access-Control-Allow-Origin', '*');
+    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     this.body = '';
 };
