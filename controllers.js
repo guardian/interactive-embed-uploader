@@ -44,7 +44,7 @@ exports.embed = function *() {
 };
 
 exports.cors = function *() {
-    this.set("Access-Control-Allow-Origin", "https://charts.local.dev-gutools.co.uk"),
+    this.set("Access-Control-Allow-Origin", "https://charts.gutools.co.uk"),
     this.set("Vary", "Origin"),
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
