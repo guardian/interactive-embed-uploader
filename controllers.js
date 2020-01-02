@@ -14,8 +14,7 @@ exports.embed = function *() {
     var config = gu.config.types[type];
     var {embed} = this.request.body;
 
-    // this may break existing usage so am commenting out
-    this.set('Access-Control-Allow-Origin', 'https://charts.gutools.co.uk');
+    this.set('Access-Control-Allow-Origin', '*');
     this.set('Access-Control-Allow-Credentials', 'true')
 
     gu.log.info("EMBED Function, request is:", this)
