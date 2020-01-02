@@ -14,8 +14,8 @@ exports.embed = function *() {
     var config = gu.config.types[this.request.query.type];
     var {embed} = this.request.body;
 
-    this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Credentials', 'true')
+    // this.set('Access-Control-Allow-Origin', '*');
+    // this.set('Access-Control-Allow-Credentials', 'true')
 
     gu.log.info("EMBED Function, request is:", this)
 
