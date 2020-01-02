@@ -11,7 +11,7 @@ exports.index = function *() {
 
 exports.embed = function *() {
     var type = this.request.query.type;
-    var config = gu.config.types[type];
+    var config = gu.config.types[this.request.query.type];
     var {embed} = this.request.body;
 
     this.set('Access-Control-Allow-Origin', '*');
