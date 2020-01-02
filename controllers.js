@@ -14,15 +14,13 @@ exports.embed = function *() {
     var config = gu.config.types[this.request.query.type];
     var {embed} = this.request.body;
 
-    this.set('Access-Control-Allow-Origin', '*');	
-    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');	
-    this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-
-    // these may break prod 
+    // this may break existing usage so am commenting out
     // this.set("Access-Control-Allow-Origin", "https://charts.gutools.co.uk"),
+    // this.set("Vary", "Origin"), 
     // this.set('Access-Control-Allow-Credentials', 'true')
-
-    gu.log.info("EMBED Function, request is:", this)
+    this.set('Access-Control-Allow-Origin', '*');
+    this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
+    this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
 
     if (config) {
         let key = moment().format('MMM/YYYY-MM-DDTHH:mm:ss').replace(/(^\w{3})/, a => a.toLowerCase());
@@ -46,14 +44,12 @@ exports.embed = function *() {
 };
 
 exports.cors = function *() {
-    this.set('Access-Control-Allow-Origin', 'https://charts.gutools.co.uk');
+    this.set("Access-Control-Allow-Origin", "https://charts.gutools.co.uk");
+    this.set("Vary", "Origin");
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     this.set('Access-Control-Allow-Credentials', 'true');
-    this.set("Vary", "Origin");
     this.body = '';
-    // temp log 
-    gu.log.info("CORS Function, request is:", this)
 };
 
 function uploadToS3(filename, mimeType, body) {
