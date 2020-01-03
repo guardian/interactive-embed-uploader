@@ -15,12 +15,12 @@ exports.embed = function *() {
     var {embed} = this.request.body;
 
     // this may break existing usage so am commenting out
-    // this.set("Access-Control-Allow-Origin", "https://charts.gutools.co.uk"),
-    // this.set("Vary", "Origin"), 
-    // this.set('Access-Control-Allow-Credentials', 'true')
-    this.set('Access-Control-Allow-Origin', '*');
+    this.set('Access-Control-Allow-Origin', 'https://charts.gutools.co.uk');
+    this.set('Access-Control-Allow-Credentials', 'true');
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+
+    gu.log.info("Request headers in EMBED function is this ====>", this.request.headers);
 
     if (config) {
         let key = moment().format('MMM/YYYY-MM-DDTHH:mm:ss').replace(/(^\w{3})/, a => a.toLowerCase());
@@ -44,8 +44,10 @@ exports.embed = function *() {
 };
 
 exports.cors = function *() {
+
+    gu.log.info("Request headers in CORS function is this ====>", this.request.headers);
+
     this.set("Access-Control-Allow-Origin", "https://charts.gutools.co.uk");
-    this.set("Vary", "Origin");
     this.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Access-Control-Request-Headers');
     this.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     this.set('Access-Control-Allow-Credentials', 'true');
